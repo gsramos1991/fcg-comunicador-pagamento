@@ -1,6 +1,11 @@
 <Solution>
-  <Project Path="FCG.Comunicador.Business/FCG.Comunicador.Business.csproj" Id="90abf17e-7f4d-4312-bdbc-9894fd26a8e4" />
-  <Project Path="FCG.Comunicador.Getway.Pagamento/FCG.Comunicador.Getway.Pagamento.csproj" />
-  <Project Path="FCG.Comunicador.Infra/FCG.Comunicador.Infra.csproj" />
-  <Project Path="FCG.Comunicador.Service/FCG.Comunicador.Service.csproj" />
+  <Folder Name="/src/">
+    <Project Path="src/FCG.Comunicador.Business/FCG.Comunicador.Business.csproj" Id="90abf17e-7f4d-4312-bdbc-9894fd26a8e4" />
+    <Project Path="src/FCG.Comunicador.Getway.Pagamento/FCG.Comunicador.Getway.Pagamento.csproj" />
+    <Project Path="src/FCG.Comunicador.Infra/FCG.Comunicador.Infra.csproj" />
+    <Project Path="src/FCG.Comunicador.Service/FCG.Comunicador.Service.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/FCG.Comunicador.Getway.Pagamento.Tests/FCG.Comunicador.Getway.Pagamento.Tests.csproj" Id="a1ad5fb1-c4f0-4ceb-8bab-f91483ec29c1" />
+  </Folder>
 </Solution>
