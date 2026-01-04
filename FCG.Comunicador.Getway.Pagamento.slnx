@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="FCG.Comunicador.Business/FCG.Comunicador.Business.csproj" Id="90abf17e-7f4d-4312-bdbc-9894fd26a8e4" />
+  <Project Path="FCG.Comunicador.Getway.Pagamento/FCG.Comunicador.Getway.Pagamento.csproj" />
+  <Project Path="FCG.Comunicador.Infra/FCG.Comunicador.Infra.csproj" />
+  <Project Path="FCG.Comunicador.Service/FCG.Comunicador.Service.csproj" />
+</Solution>
