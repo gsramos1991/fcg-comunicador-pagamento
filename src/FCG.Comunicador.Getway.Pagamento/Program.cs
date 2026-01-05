@@ -1,5 +1,4 @@
 using FCG.Comunicador.Business.Interface;
-
 using FCG.Comunicador.Infra.Data;
 using FCG.Comunicador.Infra.Repository;
 using FCG.Comunicador.Service.Services;
@@ -19,29 +18,36 @@ builder.Services.AddHttpClient<IOrderRepository, OrderRepository>();
 
 builder.Services.AddMassTransit(x =>
 {
-    // Adiciona o seu consumidor (o código que processa a mensagem)
+    // Adiciona o seu consumidor
     x.AddConsumer<PaymentRequestConsumer>();
 
-    x.UsingRabbitMq((context, cfg) =>
+    // Troca de UsingRabbitMq para UsingAzureServiceBus
+    x.UsingAzureServiceBus((context, cfg) =>
     {
-        cfg.Host(builder.Configuration.GetSection("RabbitMq:HostName").Value, h =>
-        {
-            h.Username(builder.Configuration.GetSection("RabbitMq:UserName").Value!);
-            h.Password(builder.Configuration.GetSection("RabbitMq:Password").Value!);
-        });
+        // Pega a string de conexão do appsettings.json
+        var connectionString = builder.Configuration.GetSection("ConfigFila:ConnectionString").Value;
+        var nomeFila = builder.Configuration.GetSection("ConfigFila:NomeFila").Value!;
+        cfg.Host(connectionString);
 
-        // Configura o endpoint (Fila)
-        cfg.ReceiveEndpoint("payment-requests", e =>
+        // Configura o endpoint (Fila no Azure Service Bus)
+        cfg.ReceiveEndpoint(nomeFila, e =>
         {
+            e.ConfigureConsumeTopology = false;
             
+            // O Azure Service Bus lida bem com JSON, mas se precisar manter o Raw:
             e.ClearSerialization();
             e.UseRawJsonSerializer();
-            // Tenta 3 vezes com intervalo de 5 segundos antes de mandar para o erro
+
+            // Resiliência: Tenta 3 vezes com intervalo de 5 segundos
             e.UseMessageRetry(r => r.Interval(3, TimeSpan.FromSeconds(5)));
 
-            // Define o consumidor
+            e.MaxDeliveryCount = 2;
+
+            // Define o consumidor para esta fila
             e.ConfigureConsumer<PaymentRequestConsumer>(context);
-            
+
+            // Opcional: No Azure, você pode configurar o tempo de lock da mensagem
+            // e.LockDuration = TimeSpan.FromMinutes(5);
         });
     });
 });
