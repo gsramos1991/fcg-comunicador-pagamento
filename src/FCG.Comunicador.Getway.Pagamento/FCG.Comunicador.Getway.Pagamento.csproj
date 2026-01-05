@@ -21,10 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="NewFolder\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\FCG.Comunicador.Business\FCG.Comunicador.Business.csproj" />
     <ProjectReference Include="..\FCG.Comunicador.Infra\FCG.Comunicador.Infra.csproj" />
     <ProjectReference Include="..\FCG.Comunicador.Service\FCG.Comunicador.Service.csproj" />
