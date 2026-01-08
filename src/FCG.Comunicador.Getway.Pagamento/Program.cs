@@ -12,11 +12,11 @@ try
 {
     var builder = Host.CreateApplicationBuilder(args);
 
-    var LicenseNewRelic = builder.Configuration.GetSection("NewRelic:LicenseNewRelic").Value;
+    var LicenseNewRelic = builder.Configuration.GetSection("NewRelic:LicenseKey").Value;
 
     if(LicenseNewRelic == null)
     {
-        throw new ArgumentNullException("Informe NewRelic:LicenseNewRelic");
+        throw new ArgumentNullException("Informe NewRelic:LicenseKey");
     }
 
     Log.Logger = new LoggerConfiguration()

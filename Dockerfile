@@ -27,13 +27,16 @@ RUN dotnet publish "FCG.Comunicador.Getway.Pagamento.csproj" -c Release -o /app/
 FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine AS final
 WORKDIR /app
 
-# Adiciona bibliotecas de globalização (necessário para imagens Alpine e valores monetários/BRL)
-RUN apk add --no-cache icu-libs
-ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
 
-# Instala os dados de timezone no Alpine
-RUN apk add --no-cache tzdata
-ENV TZ=America/Sao_Paulo
+# 1. Configurações de Sistema (Alpine)
+RUN apk add --no-cache \
+    icu-libs \
+    tzdata
+	
+ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false \
+    TZ=America/Sao_Paulo \
+    LC_ALL=pt_BR.UTF-8 \
+    LANG=pt_BR.UTF-8
 
 # Copia a publicação do estágio anterior
 COPY --from=build /app/publish .
