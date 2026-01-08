@@ -1,6 +1,7 @@
 ﻿using FCG.Comunicador.Business.Models;
 using FCG.Comunicador.Service.Services.Interfaces;
 using MassTransit;
+using Serilog;
 
 namespace FCG.Comunicador.Service.Services
 {
@@ -17,10 +18,10 @@ namespace FCG.Comunicador.Service.Services
 
         public async Task Consume(ConsumeContext<NewPayment> context)
         {
-            // O MassTransit já converte o JSON para o objeto 'context.Message' automaticamente
+            
             var dados = context.Message;
 
-            Console.WriteLine($"[Processando MassTransit]: {dados.OrderId}");
+            Log.Information("[Processando MassTransit]: {OrderId}", dados.OrderId);
 
             
             var dadosGetway = await _orderService.SendToGetway(dados);
@@ -29,7 +30,7 @@ namespace FCG.Comunicador.Service.Services
             {
                 if(dadosGetway.statusProcesso == -2)
                 {
-                    Console.WriteLine($"[Ordem de serviço já existe no banco de dados (recompra indevida)]: {dados.OrderId}");
+                    Log.Information("[Ordem de serviço já existe no banco de dados (recompra indevida)]: {OrderId}", dados.OrderId);
                     return;
                 }
             }
