@@ -91,6 +91,9 @@ O projeto segue uma arquitetura limpa (Clean Architecture), dividida nas seguint
     ```
     > **Nota:** Use as variáveis de ambiente para passar as configurações sensíveis para o contêiner.
 
-## autores
-
-- **Gabriel F.C.G.**
+## 👥 Idealizadores do Projeto (Discord)
+- 👨‍💻 Clovis Alceu Cassaro (`cloves_93258`)
+- 👨‍💻 Gabriel Santos Ramos (`_gsramos`)
+- 👨‍💻 Júlio César de Carvalho (`cesarsoft`)
+- 👨‍💻 Marco Antonio Araujo (`_marcoaz`)
+- 👩‍💻 Yasmim Muniz Da Silva Caraça (`yasmimcaraca`)
